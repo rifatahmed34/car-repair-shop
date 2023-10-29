@@ -70,20 +70,20 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Full Name</span>
                             </label>
-                            <input type="text" placeholder="Enter Your Name" name='name' className="input border-none bg-slate-100 rounded-none input-bordered" required />
+                            <input type="text" placeholder="Enter Your Name" name='name' className="input border-none bg-slate-200 text-black rounded-none input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email" name='email' className="input border-none bg-slate-100 rounded-none input-bordered" required />
+                            <input type="email" placeholder="email" name='email' className="input border-none bg-slate-200 text-black rounded-none input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
                             <div className='flex'>
-                                <input type={showPassword ? 'text' : 'password'} placeholder="password" name='password' className="input border-none bg-slate-100 rounded-none input-bordered w-full" required />
+                                <input type={showPassword ? 'text' : 'password'} placeholder="password" name='password' className="input border-none bg-slate-200 text-black rounded-none input-bordered w-full" required />
                                 <span className='text-2xl relative mt-3 -ml-8 ' onClick={() => setShowPassword(!showPassword)}>{showPassword? <AiFillEye></AiFillEye> : <AiFillEyeInvisible></AiFillEyeInvisible>}</span>
                             </div>
                             {

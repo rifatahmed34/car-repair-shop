@@ -13,7 +13,7 @@ const Home = () => {
     const [serviceCard, setServiceCard] = useState([]);
 
     useEffect(() => {
-        fetch('/public/services.json')
+        fetch('http://localhost:5000/service')
         .then(res => res.json())
         .then(data => setServiceCard(data))
     },[])

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg'
 const Footer = () => {
     return (
@@ -15,8 +16,9 @@ const Footer = () => {
             </nav>
             <nav>
                 <header className="footer-title">Company</header>
-                <a className="link link-hover">About us</a>
-                <a className="link link-hover">Contact</a>
+                <Link to='/'>Home</Link>
+                <Link to='/about'>About</Link>
+                <Link to='/contact'>Contact</Link>
                 <a className="link link-hover">Jobs</a>
                 <a className="link link-hover">Press kit</a>
             </nav>
