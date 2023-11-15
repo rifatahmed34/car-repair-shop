@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import Banner from "../Banner/Banner";
 import About from "../Page/About";
 import { BsCalendar4Event } from 'react-icons/bs';
@@ -6,19 +6,20 @@ import { FiPhoneCall } from 'react-icons/fi';
 import { FaLocationDot } from 'react-icons/fa6';
 
 
-import { useState } from "react";
+// import { useState } from "react";
 import HomeCard from "../HomeCard/HomeCard";
+import UseServices from "./UseServices";
 
 const Home = () => {
-    const [serviceCard, setServiceCard] = useState([]);
+    // const [serviceCard, setServiceCard] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/service')
-        .then(res => res.json())
-        .then(data => setServiceCard(data))
-    },[])
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/services')
+    //     .then(res => res.json())
+    //     .then(data => setServiceCard(data))
+    // },[])
     
-
+const serviceCard = UseServices();
     return (
         <div>
             <Banner></Banner>

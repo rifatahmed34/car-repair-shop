@@ -5,8 +5,8 @@ import banner5 from '../../assets/banner/5.jpg'
 const Banner = () => {
     return (
         <div className="carousel w-full h-[100vh]">.
-            <div id="slide1" className="carousel-item relative w-full">
-                <img src={banner5} className="w-full rounded-xl" />
+            <div id="slide1" className="carousel-item relative w-full ">
+                <img src={banner5} className="w-full rounded-xl h-[100vh]" />
                 <div className="absolute bg-gradient-to-r rounded-xl space-y-7 flex items-center mt- from-[#151515] to-[rgba(21, 21, 21, 0.00)] h-full w-full ">
                    <div className='w-1/3 space-y-7 ml-16'>
                    <h className="text-6xl font-semibold text-lime-400">Affordable Price For Car Servicing</h>

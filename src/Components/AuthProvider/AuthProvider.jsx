@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import app from "../../firebase.config";
+import axios from "axios";
+import PropTypes from 'prop-types';
 
 
 export const AuthContext = createContext(null);
@@ -33,14 +35,31 @@ const AuthProvider = ({children}) => {
 
 
     useEffect(() => {
-       const unSubscribe = onAuthStateChanged(auth, createUser => {
-            setUser(createUser)
+       const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const userEmail = currentUser?.email || user?.email;
+        const logedUser = {email: userEmail}
+            setUser(currentUser)
             setLoding(false);
+            console.log('current user',currentUser);
+            // if user exists then issue a token
+            if(currentUser){
+                axios.post('http://localhost:5000/jwt',logedUser, {withCredentials: true})
+                .then(res => {
+                    console.log('token response',res.data);
+                })
+            }
+            else{
+                axios.post('http://localhost:5000/logout', logedUser, {withCredentials: true})
+                .then(res => {
+                    console.log(res.data);
+                })
+            }
         })
         return () => {
             unSubscribe();
         }
     })
+    
 
     const info = {
         user,
@@ -56,5 +75,7 @@ const AuthProvider = ({children}) => {
        </AuthContext.Provider>
     );
 };
-
-export default AuthProvider;
+AuthProvider.propTypes = {
+    children: PropTypes.object
+  };
+export default AuthProvider;   

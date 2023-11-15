@@ -3,17 +3,20 @@ import { SiFacebook } from 'react-icons/si';
 import { BsLinkedin } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link,  useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import axios from 'axios';
 
 
 const Login = () => {
 
-    const {signIn, googleLogin} = useContext(AuthContext)
+    const {signIn, googleLogin, user} = useContext(AuthContext)
     const [passerror, setError] = useState();
     const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation()
+    const navigate = useNavigate();
     
 
     const handleSubmit = (e) => {
@@ -30,8 +33,20 @@ const Login = () => {
 
         signIn(email, password)
         .then(result => {
-            console.log(result.user)
+            // const logedInUser = result.user
+            console.log(result.user);
+            // const user = {email};
             toast.success('Login successful')
+            
+            // access token
+            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+                navigate(location?.state ? location.state : '/');
+                // if(res.data.success){
+                    
+                // }
+            })
         })
         .catch(err => {
             console.log(err.message)
@@ -42,6 +57,7 @@ const Login = () => {
             .then(res => {
                 console.log(res.user)
                 toast.success('Login successful')
+                navigate(location?.state ? location.state : '/');
             })
             .catch(err => {
                 console.log(err.message)
@@ -68,7 +84,7 @@ const Login = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <div className='flex'>
-                            <input type={showPassword? 'text' : 'password'} placeholder="password" name='password' className="input w-full border-none bg-slate-100 rounded-none input-bordered" required />
+                            <input type={showPassword? 'text' : 'password'} placeholder="password" required name='password' className="input w-full border-none bg-slate-100 rounded-none input-bordered" />
                             <span className='relative mt-3 -ml-8 text-2xl' onClick={() => setShowPassword(!showPassword)}>{showPassword ? <AiFillEye></AiFillEye> : <AiFillEyeInvisible></AiFillEyeInvisible>}</span>
                             </div>
                             {

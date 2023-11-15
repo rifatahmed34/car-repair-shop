@@ -2,10 +2,12 @@ import { useLoaderData } from "react-router-dom";
 import image from '../../assets/checkout/checkout.png'
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import toast, { Toaster } from 'react-hot-toast';
+
 const CheckOut = () => {
     const service = useLoaderData();
     const { title, _id, img, price } = service;
-    const {user} = useContext(AuthContext)
+    const {user} = useContext(AuthContext);
 
     const handleCheckOut = (e) => {
         e.preventDefault()
@@ -16,7 +18,7 @@ const CheckOut = () => {
         const  email = user?.email;
         const massage = from.massage.value;
         const order = {
-            name, date, phone, email, massage, _id, img, title, price
+            name, date, phone, email, massage, service: _id, img: img, title: title, price: price
         }
         console.log(order)
         fetch('http://localhost:5000/bookings', {
@@ -29,6 +31,7 @@ const CheckOut = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
+            toast.success('Order Complite Successfully!')
         })
     }
 
@@ -38,9 +41,9 @@ const CheckOut = () => {
         <div>
             <div id="slide1" className="carousel-item relative w-full">
                 <img src={image} className="w-full rounded-xl" />
-                <div className="absolute bg-gradient-to-r rounded-xl space-y-7 flex items-center  h-full w-full ">
+                <div className="absolute bg-gradient-to-r rounded-xl space-y-7 flex items-center mt- from-[#151515] to-[rgba(21, 21, 21, 0.00)]  h-full w-full ">
                     <div className='w-1/3 space-y-7 ml-16'>
-                        <h className="text-6xl font-semibold ">Check Out</h>
+                        <h className="text-6xl font-semibold text-white ">Check Out</h>
                     </div>
                 </div>
             </div>
@@ -50,7 +53,7 @@ const CheckOut = () => {
                     <div className="form-control">
                         <div className="lg:flex gap-4">
                             <div className="w-full">
-                                <input type="text" placeholder="Name" name='name' className="input border-none bg-slate-100 w-full rounded-none input-bordered" />
+                                <input type="text" placeholder="Name" defaultValue={user?.displayName} name='name' className="input border-none bg-slate-100 w-full rounded-none input-bordered" />
                             </div>
                             <div className="w-full">
                                 <input type="date" placeholder="Date" name='date' className="input text-black border-none bg-slate-200 w-full rounded-none input-bordered" />
@@ -64,7 +67,7 @@ const CheckOut = () => {
                             </div>
                             <div className="w-full">
                                 <label htmlFor=""></label>
-                                <input type="email" placeholder="Your Email" name='email' className="input  border-none bg-slate-100 w-full rounded-none input-bordered" />
+                                <input type="email" placeholder="Your Email" defaultValue={user?.email} name='email' className="input  border-none bg-slate-100 w-full rounded-none input-bordered" />
                             </div>
                         </div>
                     </div>
@@ -76,7 +79,7 @@ const CheckOut = () => {
                     </div>
                 </form>
             </div>
-            
+            <Toaster></Toaster>
         </div>
     );
 };

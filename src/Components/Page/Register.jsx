@@ -31,6 +31,7 @@ const Register = () => {
             setErrorPassword('you must have at least one uppercase  letter')
             return;
         }
+        setErrorPassword('')
 
         createUser(email, password)
             .then((userCredential) => {
@@ -70,7 +71,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Full Name</span>
                             </label>
-                            <input type="text" placeholder="Enter Your Name" name='name' className="input border-none bg-slate-200 text-black rounded-none input-bordered" required />
+                            <input type="text" placeholder="Enter Your Name" name='name' className="input border-none bg-slate-200 text-black rounded-none input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
